@@ -6,54 +6,40 @@
 #include "Window.h"
 #include "ConstructionAlgorithms.h"
 #include <filesystem>
-#include <Windows.h>
+//#include <Windows.h>
 #include <string>
 #include <locale>
 #include <codecvt>
 #include <map>
 #include <sstream>
+#include <filesystem>
 
 
 using namespace fjss;
 
-#include <atlstr.h>
+//#include <atlstr.h>
 
 std::map<std::string, std::map<std::string, std::vector<double>>> readParamMap();
 
-std::vector<std::string> getFilesInDirectory(const std::wstring& directory) {
+
+std::vector<std::string> getFilesInDirectory(const std::string& directory) {
 	std::vector<std::string> files;
-
-	std::wstring searchPath = directory + L"\\*";
-	WIN32_FIND_DATAW findData;
-	HANDLE hFind = FindFirstFileW(searchPath.c_str(), &findData);
-	std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
-
-	if (hFind == INVALID_HANDLE_VALUE)
-		return files;
-
-	do {
-		std::wstring filename = findData.cFileName;
-
-		// Skip "." and ".."
-		if (filename != L"." && filename != L"..") {
-			files.push_back(converter.to_bytes(directory + L"\\" + filename));
-		}
-
-	} while (FindNextFileW(hFind, &findData));
-
-	FindClose(hFind);
-	return files;
+    for (const auto & entry : std::filesystem::directory_iterator(directory))
+		files.push_back(entry.path());
 }
 
-/*
+
+
 int main() {
-//#define VIS
+#define VIS
 #ifdef VIS
 	// VISUALIZATION
 	srand(time(NULL));
 	Window w;
-	std::ifstream ifss("C:\\Users\\chedo\\OneDrive\\Pulpit\\POLITECHNIKA WARSZAWSKA\\PBAD"
-		"\\test_data_3\\rnd_JT(5)_J(15)_M(5)_JO(5-10)_O(20)_OM(1-3)_test.json");
+	//std::ifstream ifss("C:\\Users\\chedo\\OneDrive\\Pulpit\\POLITECHNIKA WARSZAWSKA\\PBAD"
+	//	"\\test_data_3\\rnd_JT(5)_J(15)_M(5)_JO(5-10)_O(20)_OM(1-3)_test.json");
+	std::ifstream ifss("/home/schedoska/Desktop/POLITECHNIKA WARSZAWSKA/PBAD"
+		"/test_data_3/rnd_JT(5)_J(15)_M(5)_JO(5-10)_O(20)_OM(1-3)_test.json");
 	nlohmann::json js = nlohmann::json::parse(ifss);
 	JobContainer jcs = parseProblem(js[14]);
 	//std::ifstream ifss("C:\\Users\\chedo\\OneDrive\\Pulpit\\POLITECHNIKA WARSZAWSKA\\PBAD\\fjsp-instances-main\\brandimarte\\mk06.txt");
@@ -94,7 +80,7 @@ int main() {
 	out_file_makeSpans << "null\n";
 	int filec = 0;
 
-	std::wstring path = L"C:\\Users\\chedo\\OneDrive\\Pulpit\\POLITECHNIKA WARSZAWSKA\\PBAD\\test_data_3";
+	std::string path = "C:\\Users\\chedo\\OneDrive\\Pulpit\\POLITECHNIKA WARSZAWSKA\\PBAD\\test_data_3";
 	std::vector<std::string> files = getFilesInDirectory(path);
 
 	for (const auto& file : files) {
@@ -153,7 +139,7 @@ int main() {
 
 	out_file.close();
 }
-*/
+
 
 /*
 int main() {
@@ -253,7 +239,7 @@ int main() {
 
 // file -> algortithm -> parameters
 std::map<std::string, std::map<std::string, std::vector<double>>> readParamMap() {
-	std::wstring path = L"C:\\Users\\chedo\\OneDrive\\Pulpit\\POLITECHNIKA WARSZAWSKA\\PBAD\\params_data";
+	std::string path = "C:\\Users\\chedo\\OneDrive\\Pulpit\\POLITECHNIKA WARSZAWSKA\\PBAD\\params_data";
 	std::vector<std::string> files = getFilesInDirectory(path);
 
 	std::map<std::string, std::map<std::string, std::vector<double>>> global_params_map;
@@ -505,6 +491,7 @@ int main() {
 
 
 // Do testowania brandimarte dla one-step:
+/*
 int main() {
 	std::map<std::string, std::map<std::string, std::vector<double>>> global_params_map = readParamMap();
 
@@ -535,7 +522,7 @@ int main() {
 	int filec = 0;
 
 	//std::wstring path = L"C:\\Users\\chedo\\OneDrive\\Pulpit\\POLITECHNIKA WARSZAWSKA\\PBAD\\test_data_3";
-	std::wstring path = L"C:\\Users\\chedo\\OneDrive\\Pulpit\\POLITECHNIKA WARSZAWSKA\\PBAD\\brandimarte";
+	std::string path = "C:\\Users\\chedo\\OneDrive\\Pulpit\\POLITECHNIKA WARSZAWSKA\\PBAD\\brandimarte";
 	std::vector<std::string> files = getFilesInDirectory(path);
 
 	for (const auto& file : files) {
@@ -597,7 +584,7 @@ int main() {
 
 	out_file.close();
 }
-
+*/
 
 
 /*

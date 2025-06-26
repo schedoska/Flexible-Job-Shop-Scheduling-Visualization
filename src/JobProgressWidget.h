@@ -3,6 +3,7 @@
 #include "Widget.h"
 #include "FJSS.hpp"
 #include <unordered_map>
+#include <cmath>
 
 struct JobUi {
 	JobUi(const fjss::Job& job);

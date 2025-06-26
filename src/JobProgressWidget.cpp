@@ -2,7 +2,7 @@
 
 JobProgressWidget::JobProgressWidget()
 {
-	m_font.loadFromFile("C:\\Users\\chedo\\OneDrive\\Pulpit\\PARTICLE_FILTER\\OpenSans.ttf");
+	m_font.loadFromFile("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf");
 	m_textShape.setFont(m_font);
 	m_textShape.setCharacterSize(JobProgrssUi::textCharSize);
 	m_textShape.setFillColor(sf::Color::Black);

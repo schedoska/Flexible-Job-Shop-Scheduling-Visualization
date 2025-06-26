@@ -10,7 +10,7 @@ ScheduleWidget::ScheduleWidget()
 	m_timePtrShape.setSize({ ScheduleUi::gridThicness, ScheduleUi::timePtrHeight });
 	m_makeSpanLineShape.setFillColor(ScheduleUi::makeSpanColor);
 	
-	m_font.loadFromFile("C:\\Users\\chedo\\OneDrive\\Pulpit\\PARTICLE_FILTER\\OpenSans.ttf");
+	m_font.loadFromFile("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf");
 	m_textShape.setFont(m_font);
 	m_textShape.setCharacterSize(ScheduleUi::textCharSize);
 	m_textShape.setFillColor(ScheduleUi::gridColor);
